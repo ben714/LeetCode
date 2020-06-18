@@ -1,5 +1,9 @@
 import java.util.*;
 
+/*
+* Three way quick sort solution based on the QuickSort
+*/
+
 public class ThreeWayQuickSort {
 
     static void printArray(int[] arr)
