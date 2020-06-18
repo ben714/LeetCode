@@ -20,6 +20,7 @@ public class Hi {
             }
             Geeks obj = new Geeks();
             System.out.println(obj.MaxGap(arr));
+            System.out.println("");
         }
     }
 }
