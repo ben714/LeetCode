@@ -9,7 +9,12 @@ public class test1 {
         x[2]=3;
         test1 obj = new test1();
         obj.cal(x[0]);
-        System.out.println(x[0]);
+
+        String firstName = "John ";
+        String lastName = "Doe";
+        firstName=firstName.substring(1);
+        System.out.println(firstName);
+
     }
 
     public void cal(int x)
