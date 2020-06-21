@@ -1,5 +1,7 @@
 //Draft only
 
+import javax.swing.plaf.synth.SynthTextAreaUI;
+
 public class test1 {
     public static void main(String args[])
     {
@@ -13,7 +15,8 @@ public class test1 {
         String firstName = "John ";
         String lastName = "Doe";
         firstName=firstName.substring(1);
-        System.out.println(firstName);
+        int a = Integer.MAX_VALUE;
+        System.out.println(a);
 
     }
 

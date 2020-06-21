@@ -31,7 +31,7 @@ public class Question006 {
         String s = sc.nextLine();
         int row = sc.nextInt();
         Question006 obj = new Question006();
-        System.out.println("Output: " + obj.convert2(s,row));
+        System.out.println("Output: " + obj.convert3(s,row));
     }
 
     public String convert(String s, int numRows)
@@ -100,4 +100,28 @@ public class Question006 {
             return ret.toString();
         }
 
+        public String convert3(String s, int numRows) {
+            int size = s.length();
+            if(numRows <=1){
+                return s;
+            }else{
+                char[] arr = new char[size];
+                int distnormal = 2*(numRows-1);
+                int distmiddle;
+                int index = 0;
+                for(int rownumber=0;rownumber<numRows;rownumber++){
+                    distmiddle = distnormal - 2*rownumber;
+                    for(int j=rownumber;j<size;j=j+distnormal){
+                        arr[index] = s.charAt(j);
+                        index++;
+                        if(distmiddle < distnormal && distmiddle > 0 && j+distmiddle < size){
+                            arr[index] = s.charAt(j+distmiddle);
+                            index++;
+                        }
+                    }
+                }
+                String finalstring = new String(arr);
+                return finalstring;
+            }
+        }
 }
