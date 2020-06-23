@@ -40,6 +40,8 @@
  * */
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Question008 {
     public static void main(String[] args)
@@ -47,7 +49,7 @@ public class Question008 {
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
         Question008 obj = new Question008();
-        System.out.println("String to Integer: "+obj.myAtoi(str));
+        System.out.println("String to Integer: "+obj.myAtoi1(str));
     }
 
     public int myAtoi(String str)
@@ -55,33 +57,43 @@ public class Question008 {
         int re=0;
         int len = str.length();
         boolean flag = true;
-        boolean check = false;
-        int left = Integer.MIN_VALUE/10;
-        int right = Integer.MAX_VALUE/10;
-        for(int i=0; i<len;i++)
+        int limit = Integer.MAX_VALUE/10;
+        int index=0;
+        //remove spaces
+        while(index<len && str.charAt(index)==' ') {index++;}
+
+        if(index==len){return 0;}
+
+        if(str.charAt(index)=='-') {flag=false;index++;}
+        else if(str.charAt(index)=='+') {index++;}
+        //Positive num boundary: 2147483647
+        //Negative num boundary:-2147483648
+        int digitlimit = flag?7:8;
+        //Get all digits, return when reach boundary
+        while(index<len && Character.isDigit(str.charAt(index)))
         {
-            int as = (int) str.charAt(i);
+            int digit = str.charAt(index) - '0';
+            if (re>limit || (re==limit && (digit)>digitlimit)) {return flag?Integer.MAX_VALUE:Integer.MIN_VALUE;}
+            re=re*10+digit;
+            index++;
+        }
+        return flag?re:-re;
+    }
 
-            if(as>47 && as<58)
-            {
-                check=true;
-                if (re<left || (re==left && (as-48) >8 ))  {return Integer.MIN_VALUE;}
-                if (re>right || (re==right && (as-48)>7)) {return Integer.MAX_VALUE;}
-                re=flag?re*10+(as-48):re*10-(as-48);
-            } else if(re!=0)
-            {
-                return re;
-            }
-
-            if(re==0)
-            {
-                if(check&&as!=48) {return re;}
-                else if(as==45) {flag=false; check=true;}
-                else if(as==43) {check=true;}
-                else if(as==32||as==48) {continue;}
-                else {return re;}
+    //Regular expression
+    public int myAtoi1(String str) {
+        Pattern pattern = Pattern.compile("[-+]??[0-9]+");
+        String strTrim = str.trim();
+        Matcher matcher = pattern.matcher(strTrim);
+        if (matcher.lookingAt()) {
+            String strNum = strTrim.substring(0, matcher.end());
+            // 如果直接转32位int出现NFE那么就只要判断是Integer的最大值还是最小值就好了
+            try {
+                return Integer.parseInt(strNum);
+            } catch (NumberFormatException nfe) {
+                return strNum.charAt(0) == '-' ? Integer.MIN_VALUE : Integer.MAX_VALUE;
             }
         }
-        return re;
+        return 0;
     }
 }
