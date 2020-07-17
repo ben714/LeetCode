@@ -38,6 +38,7 @@ public class Question019 {
             ans=ans.next;
         }
     }
+    //Approach 1: One-pass (Using List to store the linked list)
     public ListNode removeNthFromEnd(ListNode head,int n){
         ListNode ans = head;
         List<ListNode> li = new ArrayList<>();
@@ -66,5 +67,24 @@ public class Question019 {
             }
         }
         return head;
+    }
+
+    //Approach 2: One Pass Algorithm
+    public ListNode removeNthFromEnd1(ListNode head, int n){
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode first = dummy;
+        ListNode second = dummy;
+        //The first pointer advances the list by n+1 step from the beginning.
+        for(int i=0;i<=n;i++){
+            first = first.next;
+        }
+
+        while(first!=null){
+            first = first.next;
+            second = second.next;
+        }
+        second.next = second.next.next;
+        return dummy.next;
     }
 }
