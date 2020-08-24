@@ -1,3 +1,11 @@
+/* LeetCode Question 21: Merge Two Sorted Lists
+ * https://leetcode.com/problems/merge-two-sorted-lists/
+ * Merge two sorted linked lists and return it as a new sorted list. The new list should be made by splicing together the nodes of the first two lists.
+ * Example:
+ * Input: 1->2->4, 1->3->4
+ * Output: 1->1->2->3->4->4
+ * */
+
 import java.util.Scanner;
 
 public class Question021 {
@@ -14,9 +22,8 @@ public class Question021 {
                 l1.val=num;
                 prelist = l1;
             }else{
-                ListNode l = new ListNode(num);
-                prelist.next = l;
-                prelist = l;
+                prelist.next = new ListNode(num);
+                prelist = prelist.next;
             }
         }
         System.out.print("Length of 2nd list:");
@@ -35,7 +42,7 @@ public class Question021 {
             }
         }
         Question021 obj = new Question021();
-        ListNode ans = obj.mergeTwoLists1(l1,l2);
+        ListNode ans = obj.mergeTwoLists2(l1,l2);
         System.out.print("Two lists after merge: ");
         while(ans!=null){
             System.out.print(ans.val+"->");
@@ -88,5 +95,18 @@ public class Question021 {
         }
         preList.next = l1!=null?l1:l2;
         return head.next;
+    }
+
+    //Approach 3: Recursion
+    public ListNode mergeTwoLists2(ListNode l1, ListNode l2){
+        if(l1==null){return l2;}
+        if(l2==null){return l1;}
+        if(l1.val<=l2.val){
+            l1.next = mergeTwoLists2(l1.next,l2);
+            return l1;
+        }else{
+            l2.next = mergeTwoLists2(l1,l2.next);
+            return l2;
+        }
     }
 }
