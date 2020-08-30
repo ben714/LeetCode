@@ -141,7 +141,7 @@ public class Question023 {
     }
 
     //Approach 4: Merge with Divide and Conquer (Recursion)
-    public ListNode mergerKLists(ListNode[] lists){
+    public ListNode mergeKLists4(ListNode[] lists){
         if(lists.length==0){return null;}
         return merge(lists,0,lists.length-1);
     }
